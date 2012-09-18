@@ -9,7 +9,7 @@ public abstract class DTimer {
     protected String pluginName;
     protected boolean isAsync;
     protected boolean isRealtime;
-    protected boolean startTime;
+    protected Date startTime;
 
     public DTimer(Plugin plugin) {
         this.pluginName = plugin.getName();

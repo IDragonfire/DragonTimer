@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
 import com.github.idragonfire.api.DTimer;
@@ -28,14 +29,33 @@ public class DScheduler {
         eventListener.add(listener);
     }
 
-    public void triggerEvent(DTimer event) {
+    public void triggerEvent(final DTimer event) {
         List<DTimerListener> eventListeners = this.listeners.get(event
                 .getName());
         if (eventListeners == null || eventListeners.size() == 0) {
             // debug no list
         }
-        for (DTimerListener listener : eventListeners) {
-            listener.onDTimerEvent(event);
+        for (final DTimerListener listener : eventListeners) {
+            // Bukkit injection
+            if (event.isAsyncTask()) {
+                Bukkit.getScheduler().scheduleAsyncDelayedTask(
+                        this.plugins.get(event.getPluginName()),
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                listener.onDTimerEvent(event);
+                            }
+                        });
+            } else {
+                Bukkit.getScheduler().scheduleSyncDelayedTask(
+                        this.plugins.get(event.getPluginName()),
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                listener.onDTimerEvent(event);
+                            }
+                        });
+            }
         }
     }
 

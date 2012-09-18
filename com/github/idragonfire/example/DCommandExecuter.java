@@ -53,5 +53,11 @@ public class DCommandExecuter {
         public void onDLoadException(DLoadException e) {
             e.printStackTrace();
         }
+
+        @Override
+        public void onDTimerEventPassed(DTimer event) {
+            // TODO Auto-generated method stub
+
+        }
     }
 }
