@@ -22,8 +22,10 @@ public class DCommandTimer extends DRepeatingTimer {
         return this.commands;
     }
 
+    // TODO: rework save meachnism
     @Override
     public void save(File file) {
+        super.save(file);
         FileConfiguration data = new YamlConfiguration();
         data.set("pluginname", super.pluginName);
         data.set("commands", this.commands);
@@ -34,8 +36,10 @@ public class DCommandTimer extends DRepeatingTimer {
         }
     }
 
+    // TODO: rework load meachnism
     @Override
     public void load(File file) {
+        super.load(file);
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
         this.commands = config.getStringList("commands").toArray(new String[0]);
     }
