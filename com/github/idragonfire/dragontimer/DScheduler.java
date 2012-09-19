@@ -1,5 +1,6 @@
 package com.github.idragonfire.dragontimer;
 
+import java.util.AbstractQueue;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +14,7 @@ import com.github.idragonfire.dragontimer.api.DTimerListener;
 public class DScheduler {
     private HashMap<String, Plugin> plugins;
     private HashMap<String, List<DTimerListener>> listeners;
+    private AbstractQueue<?> taskQueue;
 
     public int scheduleTask(Plugin plugin, DTimer timer) {
         return -1;
