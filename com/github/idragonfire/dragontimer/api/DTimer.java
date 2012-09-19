@@ -1,31 +1,31 @@
 package com.github.idragonfire.dragontimer.api;
 
-import java.io.File;
-import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
 
-import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.Plugin;
 
 import com.github.idragonfire.dragontimer.DTimerPlugin;
 
+//TODO: merge DTimer with same startTime
 public abstract class DTimer {
     protected String pluginName;
     protected boolean isAsync;
     protected boolean isRealtime;
     protected Date startTime;
 
-    public DTimer(Plugin plugin) {
+    public DTimer(Plugin plugin, Date startTime) {
         this.pluginName = plugin.getName();
+        this.startTime = startTime;
     }
 
-    public DTimer(File f) {
-        load(f);
+    public DTimer(FileConfiguration config) {
+        load(config);
     }
 
-    public Date getExecutionTime() {
-        return null;
+    public Date getStartTime() {
+        return this.startTime;
     }
 
     public Date getNextExecutionTime() {
@@ -50,23 +50,16 @@ public abstract class DTimer {
         return true;
     }
 
-    public void save(File file) {
-        YamlConfiguration config = new YamlConfiguration();
+    public void save(FileConfiguration config) {
         config.set("pluginname", this.pluginName);
         config.set("isasync", this.isAsync);
         config.set("isrealtime", this.isRealtime);
         config
                 .set("starttime", DTimerPlugin.DATE_FORMAT
                         .format(this.startTime));
-        try {
-            config.save(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
-    public void load(File file) {
-        YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
+    public void load(FileConfiguration config) {
         this.pluginName = config.getString("pluginname");
         this.isAsync = config.getBoolean("isasync");
         this.isRealtime = config.getBoolean("isrealtime");

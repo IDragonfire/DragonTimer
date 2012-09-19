@@ -1,6 +1,5 @@
 package com.github.idragonfire.dragontimer;
 
-import java.util.AbstractQueue;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,12 +10,13 @@ import org.bukkit.plugin.Plugin;
 import com.github.idragonfire.dragontimer.api.DTimer;
 import com.github.idragonfire.dragontimer.api.DTimerListener;
 
+//TODO: trigger all event of eventname
 public class DScheduler {
     private HashMap<String, Plugin> plugins;
     private HashMap<String, List<DTimerListener>> listeners;
-    private AbstractQueue<?> taskQueue;
 
     public int scheduleTask(Plugin plugin, DTimer timer) {
+        DTimerPlugin.DTIMERSTORAGE.saveTask(timer);
         return -1;
     }
 
@@ -63,5 +63,9 @@ public class DScheduler {
 
     public void disable() {
         // TODO Auto-generated method stub
+    }
+
+    public static void main(String[] args) {
+
     }
 }

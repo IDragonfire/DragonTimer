@@ -9,7 +9,8 @@ public class DTimerPlugin extends JavaPlugin {
     public static final String DATE_PATTERN = "yyyyMMdd_HHmmss";
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(
             DTimerPlugin.DATE_PATTERN);
-    protected static DScheduler DSCHEDULER;
+    protected static DScheduler DSCHEDULER = new DScheduler();
+    protected static DTimerStorage DTIMERSTORAGE = new DTimerStorage("D:\\test");
 
     @Override
     public void onEnable() {

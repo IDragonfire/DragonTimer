@@ -10,15 +10,15 @@ import com.github.idragonfire.dragontimer.api.DTimer;
 public abstract class DRepeatingTimer extends DTimer {
     protected DRepeat repeat;
 
-    public DRepeatingTimer(Plugin plugin, DRepeat repeat) {
-        super(plugin);
+    public DRepeatingTimer(Plugin plugin, Date startTime, DRepeat repeat) {
+        super(plugin, startTime);
         this.repeat = repeat;
     }
 
     @Override
     public Date getNextExecutionTime() {
         try {
-            return this.repeat.getNextExecutionTime(getExecutionTime());
+            return this.repeat.getNextExecutionTime(getStartTime());
         } catch (Exception e) {
             return null;
         }

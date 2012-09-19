@@ -6,6 +6,10 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 
+import org.bukkit.configuration.file.YamlConfiguration;
+
+import com.github.idragonfire.dragontimer.api.DTimer;
+
 public class DTimerStorage {
     public static final String DATA_FOLDER = "Timers";
     protected HashMap<String, ArrayList<DateFile>> eventMapping;
@@ -27,7 +31,7 @@ public class DTimerStorage {
     }
 
     protected void hashStorage() {
-        // TODO use nio file system
+        // TODO: use nio file system
         File[] files = this.baseFolder.listFiles();
         for (File file : files) {
             if (file.isDirectory()) {
@@ -48,6 +52,22 @@ public class DTimerStorage {
         }
         Collections.sort(nextEvents);
         return nextEvents.get(0).getFile();
+    }
+
+    // TODO: if task execute at the same time
+    public void saveTask(DTimer timer) {
+        String eventName = timer.getName();
+        String date = DTimerPlugin.DATE_FORMAT.format(timer.getStartTime());
+        // TODO: create event dir if not exist
+        try {
+            File file = new File(this.baseFolder.getPath() + File.separator
+                    + eventName + File.separator + date + ".task");
+            YamlConfiguration config = new YamlConfiguration();
+            timer.save(config);
+            config.save(file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // TODO: sort out expired tasks
@@ -100,10 +120,5 @@ public class DTimerStorage {
         public int compareTo(DateFile o) {
             return this.date.compareTo(o.getDate());
         }
-    }
-
-    public static void main(String[] args) {
-        DTimerStorage s = new DTimerStorage("D:\\Minecraft\\test");
-        System.out.println(s.getNextTask());
     }
 }

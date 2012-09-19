@@ -26,14 +26,13 @@ public class DCommandExecuter {
             long repeatingTime, boolean reallifeTime, String... commands) {
         DTimer timer = null;
         if (repeatingTime <= 0) {
-            // timer = new DCommandTimerEvent(plugin, startTime, reallifeTime,
-            // commands);
+            timer = new DCommandTimer(plugin, startTime, null, commands);
         } else {
             // timer = new DRepeatingCommandTimer(plugin, startTime, new DRepeat(
             // repeatTime), reallifeTime, commands);
         }
-        DTimerPlugin.getDScheduler().scheduleTask(plugin, timer);
-        return -1;
+
+        return DTimerPlugin.getDScheduler().scheduleTask(plugin, timer);
     }
 
     public class DCommandExecuterListener implements DTimerListener {

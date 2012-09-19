@@ -1,10 +1,8 @@
 package com.github.idragonfire.dragontimer.example;
 
-import java.io.File;
-import java.io.IOException;
+import java.util.Date;
 
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
 import com.github.idragonfire.dragontimer.DRepeatingTimer;
@@ -13,8 +11,9 @@ import com.github.idragonfire.dragontimer.api.DRepeat;
 public class DCommandTimer extends DRepeatingTimer {
     protected String[] commands;
 
-    public DCommandTimer(Plugin plugin, DRepeat repeat, String... commands) {
-        super(plugin, repeat);
+    public DCommandTimer(Plugin plugin, Date startTime, DRepeat repeat,
+            String... commands) {
+        super(plugin, startTime, repeat);
         this.commands = commands;
     }
 
@@ -24,29 +23,22 @@ public class DCommandTimer extends DRepeatingTimer {
 
     // TODO: rework save meachnism
     @Override
-    public void save(File file) {
-        super.save(file);
-        FileConfiguration data = new YamlConfiguration();
-        data.set("pluginname", super.pluginName);
-        data.set("commands", this.commands);
-        try {
-            data.save(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void save(FileConfiguration config) {
+        super.save(config);
+        config.set("pluginname", super.pluginName);
+        config.set("commands", this.commands);
     }
 
     // TODO: rework load meachnism
     @Override
-    public void load(File file) {
-        super.load(file);
-        YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
+    public void load(FileConfiguration config) {
+        super.load(config);
         this.commands = config.getStringList("commands").toArray(new String[0]);
     }
 
     @Override
     public String getName() {
         // TODO: make it better
-        return this.pluginName + this.commands[0];
+        return this.pluginName;
     }
 }
