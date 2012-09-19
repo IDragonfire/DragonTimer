@@ -1,4 +1,4 @@
-package com.github.idragonfire.example;
+package com.github.idragonfire.dragontimer.example;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,8 +8,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
-import com.github.idragonfire.DRepeat;
-import com.github.idragonfire.api.DTimer;
+import com.github.idragonfire.dragontimer.DRepeat;
+import com.github.idragonfire.dragontimer.api.DTimer;
 
 public class DCommandTimer extends DTimer {
     protected String[] commands;

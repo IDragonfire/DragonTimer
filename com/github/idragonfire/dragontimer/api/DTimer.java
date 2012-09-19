@@ -1,4 +1,4 @@
-package com.github.idragonfire.api;
+package com.github.idragonfire.dragontimer.api;
 
 import java.io.File;
 import java.util.Date;

@@ -1,6 +1,6 @@
-package com.github.idragonfire.api;
+package com.github.idragonfire.dragontimer.api;
 
-import com.github.idragonfire.DLoadException;
+import com.github.idragonfire.dragontimer.DLoadException;
 
 public interface DTimerListener {
 

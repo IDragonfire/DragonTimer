@@ -1,4 +1,4 @@
-package com.github.idragonfire;
+package com.github.idragonfire.dragontimer;
 
 import org.bukkit.plugin.java.JavaPlugin;
 

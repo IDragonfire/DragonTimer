@@ -1,4 +1,4 @@
-package com.github.idragonfire;
+package com.github.idragonfire.dragontimer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,8 +7,8 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
-import com.github.idragonfire.api.DTimer;
-import com.github.idragonfire.api.DTimerListener;
+import com.github.idragonfire.dragontimer.api.DTimer;
+import com.github.idragonfire.dragontimer.api.DTimerListener;
 
 public class DScheduler {
     private HashMap<String, Plugin> plugins;

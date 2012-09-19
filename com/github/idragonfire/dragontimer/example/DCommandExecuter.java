@@ -1,14 +1,14 @@
-package com.github.idragonfire.example;
+package com.github.idragonfire.dragontimer.example;
 
 import java.util.Date;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
-import com.github.idragonfire.DLoadException;
-import com.github.idragonfire.DTimerPlugin;
-import com.github.idragonfire.api.DTimer;
-import com.github.idragonfire.api.DTimerListener;
+import com.github.idragonfire.dragontimer.DLoadException;
+import com.github.idragonfire.dragontimer.DTimerPlugin;
+import com.github.idragonfire.dragontimer.api.DTimer;
+import com.github.idragonfire.dragontimer.api.DTimerListener;
 
 public class DCommandExecuter {
 

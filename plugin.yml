@@ -1,0 +1,33 @@
+name: DragonTimer
+main: com.github.idragonfire.dragontimer.DTimerPlugin
+version: 0.1
+author: IDragonfire
+
+permissions:
+  dragontimer.*:
+    description: Gives access to all DragonTimer commands
+    children:
+      dragontimer.a: true
+      dragontimer.b: true
+      dragontimer.c: true
+
+  dragontimer.a:
+    description: Permission A
+    default: op
+
+  payforaccess.v:
+    description: Permission B
+    default: true
+
+  payforaccess.c:
+    description: Permission c
+    default: op
+    children:
+      dragontimer.a: true
+
+commands:
+  dragontimer:
+    description: DragonTimer commands
+    usage: /<command> help
+    permission: dragontimer.help
+    aliases: ["dtimer"]
