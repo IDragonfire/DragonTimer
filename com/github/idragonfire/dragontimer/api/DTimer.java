@@ -15,6 +15,10 @@ public abstract class DTimer {
         this.pluginName = plugin.getName();
     }
 
+    public DTimer(File f) {
+        load(f);
+    }
+
     public Date getExecutionTime() {
         return null;
     }
@@ -43,5 +47,5 @@ public abstract class DTimer {
 
     public abstract void save(File file);
 
-    public abstract DTimer load(File file);
+    public abstract void load(File file);
 }

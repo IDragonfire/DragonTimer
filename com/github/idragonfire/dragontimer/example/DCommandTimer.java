@@ -2,28 +2,20 @@ package com.github.idragonfire.dragontimer.example;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
-import com.github.idragonfire.dragontimer.DRepeat;
-import com.github.idragonfire.dragontimer.api.DTimer;
+import com.github.idragonfire.dragontimer.DRepeatingTimer;
+import com.github.idragonfire.dragontimer.api.DRepeat;
 
-public class DCommandTimer extends DTimer {
+public class DCommandTimer extends DRepeatingTimer {
     protected String[] commands;
-    protected DRepeat repeater;
 
-    public DCommandTimer(Plugin plugin, DRepeat repeater, String... commands) {
-        super(plugin);
-        this.repeater = repeater;
+    public DCommandTimer(Plugin plugin, DRepeat repeat, String... commands) {
+        super(plugin, repeat);
         this.commands = commands;
-    }
-
-    @Override
-    public Date getNextExecutionTime() {
-        return this.repeater.getNextExecutionTime(new Date());
     }
 
     public String[] getCommands() {
@@ -43,10 +35,9 @@ public class DCommandTimer extends DTimer {
     }
 
     @Override
-    public DTimer load(File file) {
-        // return new Configuration(data.getString("pluginName"), data
-        // .getList("commands"));
-        return null;
+    public void load(File file) {
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
+        this.commands = config.getStringList("commands").toArray(new String[0]);
     }
 
     @Override
