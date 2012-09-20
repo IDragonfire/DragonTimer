@@ -2,14 +2,11 @@ package com.github.idragonfire.dragontimer;
 
 import java.util.Date;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 import org.bukkit.plugin.Plugin;
 
 import com.github.idragonfire.dragontimer.api.DRepeat;
 import com.github.idragonfire.dragontimer.api.DTimer;
 
-@XmlRootElement(name = "DRepeatingTimer")
 public abstract class DRepeatingTimer extends DTimer {
     public DRepeat getRepeat() {
         return this.repeat;

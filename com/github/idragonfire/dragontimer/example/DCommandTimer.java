@@ -2,16 +2,12 @@ package com.github.idragonfire.dragontimer.example;
 
 import java.util.Date;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.Plugin;
 
 import com.github.idragonfire.dragontimer.DRepeatingTimer;
 import com.github.idragonfire.dragontimer.api.DRepeat;
 
-@XmlRootElement(name = "DCommandTimer")
 public class DCommandTimer extends DRepeatingTimer {
     protected String[] commands;
 
@@ -25,7 +21,6 @@ public class DCommandTimer extends DRepeatingTimer {
         super();
     }
 
-    @XmlElement(name = "cmds")
     public String[] getCommands() {
         return this.commands;
     }

@@ -2,12 +2,9 @@ package com.github.idragonfire.dragontimer.api;
 
 import java.util.Date;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 import org.bukkit.plugin.Plugin;
 
 //TODO: merge DTimer with same startTime
-@XmlRootElement(name = "DTimer")
 public abstract class DTimer {
     protected String pluginName;
     protected boolean asyncTask;
