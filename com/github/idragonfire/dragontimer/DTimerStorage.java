@@ -1,7 +1,5 @@
 package com.github.idragonfire.dragontimer;
 
-import java.beans.XMLEncoder;
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
@@ -10,6 +8,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 import com.github.idragonfire.dragontimer.api.DTimer;
+import com.thoughtworks.xstream.XStream;
 
 public class DTimerStorage {
     public static final String DATA_FOLDER = "Timers";
@@ -63,10 +62,9 @@ public class DTimerStorage {
         try {
             File file = new File(this.baseFolder.getPath() + File.separator
                     + eventName + File.separator + date + ".task");
-            XMLEncoder e = new XMLEncoder(new BufferedOutputStream(
-                    new FileOutputStream(file)));
-            e.writeObject(timer);
-            e.close();
+            XStream xstream = new XStream();
+            FileOutputStream fs = new FileOutputStream(file);
+            xstream.toXML(timer, fs);
         } catch (Exception e) {
             e.printStackTrace();
         }
