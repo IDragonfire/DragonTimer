@@ -15,7 +15,7 @@ public class DScheduler {
     private HashMap<String, Plugin> plugins;
     private HashMap<String, List<DTimerListener>> listeners;
 
-    public int scheduleTask(Plugin plugin, DTimer timer) {
+    public int scheduleTask(DTimer timer) {
         DTimerPlugin.DTIMERSTORAGE.saveTask(timer);
         return -1;
     }

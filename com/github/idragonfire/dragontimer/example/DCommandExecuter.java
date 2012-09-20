@@ -3,7 +3,6 @@ package com.github.idragonfire.dragontimer.example;
 import java.util.Date;
 
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
 
 import com.github.idragonfire.dragontimer.DLoadException;
 import com.github.idragonfire.dragontimer.DLongRepeat;
@@ -14,27 +13,26 @@ import com.github.idragonfire.dragontimer.api.DTimerListener;
 
 public class DCommandExecuter {
 
-    public static int executeCommand(Plugin plugin, Date startTime,
+    public static int executeCommand(String pluginName, Date startTime,
             String... commands) {
-        return executeCommand(plugin, startTime, null, commands);
+        return executeCommand(pluginName, startTime, null, commands);
     }
 
-    public static int executeCommand(Plugin plugin, Date startTime,
+    public static int executeCommand(String pluginName, Date startTime,
             long repeatingTime, String... commands) {
-        return executeCommand(plugin, startTime,
-                new DLongRepeat(repeatingTime), commands);
+        return executeCommand(pluginName, startTime, new DLongRepeat(
+                repeatingTime), commands);
     }
 
-    public static int executeCommand(Plugin plugin, Date startTime,
+    public static int executeCommand(String pluginName, Date startTime,
             DRepeat repeatingTime, String... commands) {
         DTimer timer = null;
-        timer = new DCommandTimer(plugin.getName(), "command", startTime,
-                commands);
+        timer = new DCommandTimer(pluginName, "command", startTime, commands);
         if (repeatingTime != null) {
             timer.setDRepeater(repeatingTime);
         }
 
-        return DTimerPlugin.getDScheduler().scheduleTask(plugin, timer);
+        return DTimerPlugin.getDScheduler().scheduleTask(timer);
     }
 
     public class DCommandExecuterListener implements DTimerListener {
