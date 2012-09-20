@@ -2,51 +2,18 @@ package com.github.idragonfire.dragontimer.example;
 
 import java.util.Date;
 
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.plugin.Plugin;
+import com.github.idragonfire.dragontimer.api.DTimer;
 
-import com.github.idragonfire.dragontimer.DRepeatingTimer;
-import com.github.idragonfire.dragontimer.api.DRepeat;
-
-public class DCommandTimer extends DRepeatingTimer {
+public class DCommandTimer extends DTimer {
     protected String[] commands;
 
-    public DCommandTimer(Plugin plugin, Date startTime, DRepeat repeat,
+    public DCommandTimer(String pluginName, String eventName, Date startTime,
             String... commands) {
-        super(plugin, startTime, repeat);
+        super(pluginName, eventName, startTime);
         this.commands = commands;
-    }
-
-    public DCommandTimer() {
-        super();
     }
 
     public String[] getCommands() {
         return this.commands;
-    }
-
-    // TODO: rework save meachnism
-    // @Override
-    public void save(FileConfiguration config) {
-        // super.save(config);
-        config.set("pluginname", super.pluginName);
-        config.set("commands", this.commands);
-    }
-
-    // TODO: rework load meachnism
-    // @Override
-    public void load(FileConfiguration config) {
-        // super.load(config);
-        this.commands = config.getStringList("commands").toArray(new String[0]);
-    }
-
-    public void setCommands(String[] commands) {
-        this.commands = commands;
-    }
-
-    @Override
-    public String getName() {
-        // TODO: make it better
-        return this.pluginName;
     }
 }

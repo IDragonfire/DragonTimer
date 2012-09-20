@@ -2,40 +2,35 @@ package com.github.idragonfire.dragontimer.api;
 
 import java.util.Date;
 
-import org.bukkit.plugin.Plugin;
-
 //TODO: merge DTimer with same startTime
 public abstract class DTimer {
     protected String pluginName;
+    protected String eventName;
     protected boolean asyncTask;
     protected boolean realTimeTask;
     protected Date startTime;
+    protected DRepeat repeat;
 
-    public DTimer(Plugin plugin, Date startTime) {
-        this.pluginName = plugin.getName();
+    public DTimer(String pluginName, String eventName, Date startTime) {
+        this.pluginName = pluginName;
+        this.eventName = eventName;
         this.startTime = startTime;
-        this.asyncTask = true;
-        this.realTimeTask = true;
     }
 
-    public DTimer() {
-        // for XMLEncoder
+    public void setDRepeater(DRepeat repeat) {
+        this.repeat = repeat;
     }
 
     public Date getStartTime() {
         return this.startTime;
     }
 
-    public void setPluginName(String pluginName) {
-        this.pluginName = pluginName;
-    }
-
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
-
     public Date getNextExecutionTime() {
-        return null;
+        try {
+            return this.repeat.getNextExecutionTime(getStartTime());
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public boolean isRepeatingTask() {
@@ -46,22 +41,15 @@ public abstract class DTimer {
         return this.pluginName;
     }
 
-    public abstract String getName();
-
-    public boolean isAsyncTask() {
-        return this.asyncTask;
+    public String getEventName() {
+        return this.eventName;
     }
 
-    public void setAsyncTask(boolean asyncTask) {
-        this.asyncTask = asyncTask;
+    public boolean isAsyncTask() {
+        return false;
     }
 
     public boolean isRealTimeTask() {
-        return this.realTimeTask;
+        return true;
     }
-
-    public void setRealTimeTask(boolean realTimeTask) {
-        this.realTimeTask = realTimeTask;
-    }
-
 }

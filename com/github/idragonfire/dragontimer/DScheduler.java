@@ -33,7 +33,7 @@ public class DScheduler {
 
     public void triggerEvent(final DTimer event) {
         List<DTimerListener> eventListeners = this.listeners.get(event
-                .getName());
+                .getEventName());
         if (eventListeners == null || eventListeners.size() == 0) {
             // debug no list
         }

@@ -56,12 +56,16 @@ public class DTimerStorage {
 
     // TODO: if task execute at the same time
     public void saveTask(DTimer timer) {
-        String eventName = timer.getName();
+        String eventName = timer.getEventName();
         String date = DTimerPlugin.DATE_FORMAT.format(timer.getStartTime());
         // TODO: create event dir if not exist
         try {
             File file = new File(this.baseFolder.getPath() + File.separator
                     + eventName + File.separator + date + ".task");
+            // XMLEncoder e = new XMLEncoder(new BufferedOutputStream(
+            // new FileOutputStream(file)));
+            // e.writeObject(timer);
+            // e.close();
             XStream xstream = new XStream();
             FileOutputStream fs = new FileOutputStream(file);
             xstream.toXML(timer, fs);
