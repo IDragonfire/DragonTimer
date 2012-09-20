@@ -1,31 +1,40 @@
 package com.github.idragonfire.dragontimer.api;
 
-import java.text.ParseException;
 import java.util.Date;
 
-import org.bukkit.configuration.file.FileConfiguration;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.bukkit.plugin.Plugin;
 
-import com.github.idragonfire.dragontimer.DTimerPlugin;
-
 //TODO: merge DTimer with same startTime
+@XmlRootElement(name = "DTimer")
 public abstract class DTimer {
     protected String pluginName;
-    protected boolean isAsync;
-    protected boolean isRealtime;
+    protected boolean asyncTask;
+    protected boolean realTimeTask;
     protected Date startTime;
 
     public DTimer(Plugin plugin, Date startTime) {
         this.pluginName = plugin.getName();
         this.startTime = startTime;
+        this.asyncTask = true;
+        this.realTimeTask = true;
     }
 
-    public DTimer(FileConfiguration config) {
-        load(config);
+    public DTimer() {
+        // for XMLEncoder
     }
 
     public Date getStartTime() {
         return this.startTime;
+    }
+
+    public void setPluginName(String pluginName) {
+        this.pluginName = pluginName;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
     }
 
     public Date getNextExecutionTime() {
@@ -43,31 +52,19 @@ public abstract class DTimer {
     public abstract String getName();
 
     public boolean isAsyncTask() {
-        return false;
+        return this.asyncTask;
+    }
+
+    public void setAsyncTask(boolean asyncTask) {
+        this.asyncTask = asyncTask;
     }
 
     public boolean isRealTimeTask() {
-        return true;
+        return this.realTimeTask;
     }
 
-    public void save(FileConfiguration config) {
-        config.set("pluginname", this.pluginName);
-        config.set("isasync", this.isAsync);
-        config.set("isrealtime", this.isRealtime);
-        config
-                .set("starttime", DTimerPlugin.DATE_FORMAT
-                        .format(this.startTime));
+    public void setRealTimeTask(boolean realTimeTask) {
+        this.realTimeTask = realTimeTask;
     }
 
-    public void load(FileConfiguration config) {
-        this.pluginName = config.getString("pluginname");
-        this.isAsync = config.getBoolean("isasync");
-        this.isRealtime = config.getBoolean("isrealtime");
-        try {
-            this.startTime = DTimerPlugin.DATE_FORMAT.parse(config
-                    .getString("starttime"));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
 }

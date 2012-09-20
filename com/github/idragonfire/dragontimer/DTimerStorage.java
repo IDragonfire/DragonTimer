@@ -1,12 +1,14 @@
 package com.github.idragonfire.dragontimer;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 
-import org.bukkit.configuration.file.YamlConfiguration;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
 
 import com.github.idragonfire.dragontimer.api.DTimer;
 
@@ -62,9 +64,17 @@ public class DTimerStorage {
         try {
             File file = new File(this.baseFolder.getPath() + File.separator
                     + eventName + File.separator + date + ".task");
-            YamlConfiguration config = new YamlConfiguration();
-            timer.save(config);
-            config.save(file);
+            // XMLEncoder e = new XMLEncoder(new BufferedOutputStream(
+            // new FileOutputStream(file)));
+            // e.writeObject(timer);
+            // e.close();
+            JAXBContext jc = JAXBContext.newInstance(new Class[] { timer
+                    .getClass() });
+            Marshaller m = jc.createMarshaller();
+            m.marshal(timer, new FileOutputStream(file));
+
+            // FooObject fooObj = (FooObject) u.unmarshal(file);
+            // BarObject barObj = (BarObject) u.unmarshal(new File("bar.xml"));
         } catch (Exception e) {
             e.printStackTrace();
         }
